@@ -244,8 +244,45 @@ app.get('/hotels/sort/reviews',(req,res)=>{
   });
   res.json({hotels : result})
 });
+//fn 4
+function filterByAmenity(hotel, amenity){
+  return hotel.amenity.toLowerCase() === amenity.toLowerCase();
+}
+//Endpoint 4: Filter the hotels based on the Hotel Amenity
+app.get('/hotels/filter/amenity',(req,res)=>{
+  let amenity = req.query.amenity;
+  let hotelsCopy = hotels.slice();
+  let result = hotelsCopy.filter(hotel => filterByAmenity(hotel, amenity));
+  res.json({hotels : result});
+})
+//fn 5
+function filterByCountry(hotel, country){
+  return hotel.country.toLowerCase() === country.toLowerCase();
+}
+//Endpoint 5: Filter the hotels based on the selected Country
+app.get('/hotels/filter/country',(req,res)=>{
+  let country = req.query.country;
+  let hotelsCopy = hotels.slice();
+  let result = hotelsCopy.filter(hotel => filterByCountry(hotel, country));
+  res.json({hotels : result});
+})
 
+//fn 6
+function filterByCategory(hotel, category){
+  return hotel.category.toLowerCase() === category.toLowerCase();
+}
+//Endpoint 6: Filter the hotels based on the selected Category
+app.get('/hotels/filter/category',(req,res)=>{
+  let category = req.query.category;
+  let hotelsCopy = hotels.slice();
+  let result = hotelsCopy.filter(hotel => filterByCategory(hotel, category));
+  res.json({hotels : result});
+})
 
+//Endpoint 7: Send all hotels
+app.get('/hotels',(req,res)=>{
+  res.json({hotels});
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
